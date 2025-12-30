@@ -83,7 +83,7 @@ def main():
 )
 
     if 'lstm_model' not in st.session_state:
-        st.session_state['cnn_model'] = load_model(
+        st.session_state['lstm_model'] = load_model(
     lstm_model_path,
     custom_objects=custom_objects,
     compile=False
@@ -159,6 +159,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
