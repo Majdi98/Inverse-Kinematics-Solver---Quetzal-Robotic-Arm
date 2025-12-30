@@ -4,6 +4,6 @@ pandas
 joblib
 tensorflow
 scipy
-
 scikit-learn
 gdown
+onnxruntime 
