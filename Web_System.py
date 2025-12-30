@@ -6,7 +6,7 @@ from Accuracy import paper_accuracy, custom_accuracy, custom_accuracy2
 from scipy.spatial.transform import Rotation as R
 import os
 import urllib.request
-from tensorflow.keras.models import load_model
+import tensorflow as tf
 import gdown
 from tensorflow.keras.layers import (
     Conv1D, BatchNormalization, Dropout,
@@ -34,12 +34,11 @@ custom_objects_lstm = {
     "TimeDistributed": TimeDistributed,
     "Input": Input
 }
-
 cnn_model_path = "models/best_cnn_model.h5"
-cnn_url = "https://drive.google.com/uc?id=1Zp7lPBOBLg231FIiePNgWWypY3t6cpgX"
+cnn_url = "https://drive.google.com/uc?id=15EEV2Lzk9bX-pLw2AqoBXQAhIY4Itfjt"
 
 lstm_model_path = "models/best_lstm_model.h5"
-lstm_url = "https://drive.google.com/uc?id=1sOlmkp3bxWMCcyilskZPBiTaTssAqDJe"
+lstm_url = "https://drive.google.com/uc?id=1eEdGGyqbAR_SK11twg9VqM-q6gdMxgrz"
 
 os.makedirs("models", exist_ok=True)
 
@@ -85,14 +84,14 @@ def main():
         
 
     if 'cnn_model' not in st.session_state:
-        st.session_state['cnn_model'] = load_model(
+        st.session_state['cnn_model'] = tf.keras.models.load_model(
     cnn_model_path,
     custom_objects=custom_objects_cnn,
     compile=False
 )
 
     if 'lstm_model' not in st.session_state:
-        st.session_state['lstm_model'] = load_model(
+        st.session_state['lstm_model'] = tf.keras.models.load_model(
     lstm_model_path,
     custom_objects=custom_objects_lstm,
     compile=False
@@ -168,6 +167,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
