@@ -6,7 +6,7 @@ from Accuracy import paper_accuracy, custom_accuracy, custom_accuracy2
 from scipy.spatial.transform import Rotation as R
 import os
 import urllib.request
-import tensorflow as tf
+import onnxruntime as ort
 import gdown
 from tensorflow.keras.layers import (
     Conv1D, BatchNormalization, Dropout,
@@ -84,18 +84,11 @@ def main():
         
 
     if 'cnn_model' not in st.session_state:
-        st.session_state['cnn_model'] = tf.keras.models.load_model(
-    cnn_model_path,
-    custom_objects=custom_objects_cnn,
-    compile=False
-)
+        st.session_state['cnn_model'] = ort.InferenceSession(cnn_model_path)
 
     if 'lstm_model' not in st.session_state:
-        st.session_state['lstm_model'] = tf.keras.models.load_model(
-    lstm_model_path,
-    custom_objects=custom_objects_lstm,
-    compile=False
-)
+        st.session_state['lstm_model'] = ort.InferenceSession(lstm_model_path)
+        
     current_model = st.session_state['cnn_model'] if model_choice == "CNN" else st.session_state['lstm_model']
 
     # --- Main Content ---
@@ -150,10 +143,14 @@ def main():
 
             with st.spinner(f"Running inference with {model_choice}..."):
                 if model_choice == "CNN":
-                    pred_angles_scaled = st.session_state['cnn_model'].predict(input_scaled)
+                    pred_angles_scaled = st.session_state['cnn_model'].run(
+        None, {"input": input_scaled.astype(np.float32)}  # replace "input" with your ONNX input name
+    )[0]
 
                 else:  
-                    pred_angles_scaled = st.session_state['lstm_model'].predict(input_scaled)
+                    pred_angles_scaled = st.session_state['lstm_model'].run(
+        None, {"input": input_scaled.astype(np.float32)}  # replace "input" with your ONNX input name
+    )[0]
 
 
                 pred_angles = y_scaler.inverse_transform(pred_angles_scaled.reshape(-1, 6)).reshape(1, 4, 6)
@@ -167,6 +164,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
