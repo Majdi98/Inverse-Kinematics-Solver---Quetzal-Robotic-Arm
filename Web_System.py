@@ -7,6 +7,7 @@ from scipy.spatial.transform import Rotation as R
 import os
 import urllib.request
 from tensorflow.keras.models import load_model
+import gdown
 
 # Custom objects (still used for CNN)
 custom_objects = {
@@ -25,10 +26,10 @@ os.makedirs("models", exist_ok=True)
 
 if not os.path.exists(cnn_model_path):
     with st.spinner("Downloading large model file... please wait."):
-        urllib.request.urlretrieve(cnn_url, cnn_model_path)
+        gdown.download(cnn_url, cnn_model_path, quiet=False)
 if not os.path.exists(lstm_model_path):
     with st.spinner("Downloading large model file... please wait."):
-        urllib.request.urlretrieve(lstm_url, lstm_model_path)
+        gdown.download(lstm_url, lstm_model_path, quiet=False) 
 
 def main():
     st.set_page_config(page_title="Quetzal IK Solver", layout="wide")
@@ -62,20 +63,8 @@ def main():
     except:
         st.error("Error: Scalers not found! Please train models first.")
         st.stop()
+        
 
-    # Load CNN model from pc
-    #if 'cnn_model' not in st.session_state:
-        #try:
-           # from tensorflow.keras.models import load_model
-           # st.session_state['cnn_model'] = load_model(
-              #  os.path.join('models', 'best_cnn_model.h5'),
-               # custom_objects=custom_objects
-          #  )
-       # except:
-          #  st.error("CNN model not found in models folder")
-            #st.stop()
-
-    # Load LSTM from url
     if 'cnn_model' not in st.session_state:
         st.session_state['cnn_model'] = load_model(
     cnn_model_path, custom_objects=custom_objects
@@ -157,5 +146,6 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
