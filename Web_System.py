@@ -13,7 +13,14 @@ import gdown
 custom_objects = {
     'paper_accuracy': paper_accuracy,
     'custom_accuracy': custom_accuracy,
-    'custom_accuracy2': custom_accuracy2
+    'custom_accuracy2': custom_accuracy2,
+    "Conv1D": Conv1D,
+    "BatchNormalization": BatchNormalization,
+    "Dropout": Dropout,
+    "Dense": Dense,
+    "TimeDistributed": TimeDistributed,
+    "Input": Input,
+    "LSTM": LSTM
 }
 
 cnn_model_path = "models/best_cnn_model.h5"
@@ -146,6 +153,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
