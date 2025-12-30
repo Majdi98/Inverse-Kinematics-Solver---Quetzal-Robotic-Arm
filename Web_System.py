@@ -21,6 +21,8 @@ cnn_url = "https://drive.google.com/uc?id=1Zp7lPBOBLg231FIiePNgWWypY3t6cpgX"
 lstm_model_path = "models/best_lstm_model.h5"
 lstm_url = "https://drive.google.com/uc?id=1sOlmkp3bxWMCcyilskZPBiTaTssAqDJe"
 
+os.makedirs("models", exist_ok=True)
+
 if not os.path.exists(cnn_model_path):
     with st.spinner("Downloading large model file... please wait."):
         urllib.request.urlretrieve(cnn_url, cnn_model_path)
@@ -155,4 +157,5 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
