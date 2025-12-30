@@ -16,10 +16,10 @@ custom_objects = {
 }
 
 cnn_model_path = "models/best_cnn_model.h5"
-cnn_url = "https://drive.google.com/file/d/1Zp7lPBOBLg231FIiePNgWWypY3t6cpgX/view?usp=drive_link"
+cnn_url = "https://drive.google.com/uc?id=1Zp7lPBOBLg231FIiePNgWWypY3t6cpgX"
 
 lstm_model_path = "models/best_lstm_model.h5"
-lstm_url = "https://drive.google.com/file/d/1sOlmkp3bxWMCcyilskZPBiTaTssAqDJe/view?usp=drive_link"
+lstm_url = "https://drive.google.com/uc?id=1sOlmkp3bxWMCcyilskZPBiTaTssAqDJe"
 
 if not os.path.exists(cnn_model_path):
     with st.spinner("Downloading large model file... please wait."):
@@ -155,3 +155,4 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
