@@ -8,7 +8,10 @@ import os
 import urllib.request
 from tensorflow.keras.models import load_model
 import gdown
-
+from tensorflow.keras.layers import (
+    Conv1D, BatchNormalization, Dropout,
+    Dense, TimeDistributed, Input, LSTM
+)
 # Custom objects (still used for CNN)
 custom_objects = {
     'paper_accuracy': paper_accuracy,
@@ -153,6 +156,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
