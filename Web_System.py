@@ -13,7 +13,7 @@ from tensorflow.keras.layers import (
     Dense, TimeDistributed, Input, LSTM
 )
 # Custom objects (still used for CNN)
-custom_objects = {
+custom_objects_cnn = {
     'paper_accuracy': paper_accuracy,
     'custom_accuracy': custom_accuracy,
     'custom_accuracy2': custom_accuracy2,
@@ -23,7 +23,16 @@ custom_objects = {
     "Dense": Dense,
     "TimeDistributed": TimeDistributed,
     "Input": Input,
-    "LSTM": LSTM
+}
+custom_objects_lstm = {
+    "paper_accuracy": paper_accuracy,
+    "custom_accuracy": custom_accuracy,
+    "custom_accuracy2": custom_accuracy2,
+    "LSTM": LSTM,
+    "Dense": Dense,
+    "Dropout": Dropout,
+    "TimeDistributed": TimeDistributed,
+    "Input": Input
 }
 
 cnn_model_path = "models/best_cnn_model.h5"
@@ -78,14 +87,14 @@ def main():
     if 'cnn_model' not in st.session_state:
         st.session_state['cnn_model'] = load_model(
     cnn_model_path,
-    custom_objects=custom_objects,
+    custom_objects=custom_objects_cnn,
     compile=False
 )
 
     if 'lstm_model' not in st.session_state:
         st.session_state['lstm_model'] = load_model(
     lstm_model_path,
-    custom_objects=custom_objects,
+    custom_objects=custom_objects_lstm,
     compile=False
 )
     current_model = st.session_state['cnn_model'] if model_choice == "CNN" else st.session_state['lstm_model']
@@ -159,6 +168,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
