@@ -77,14 +77,17 @@ def main():
 
     if 'cnn_model' not in st.session_state:
         st.session_state['cnn_model'] = load_model(
-    cnn_model_path, custom_objects=custom_objects
+    cnn_model_path,
+    custom_objects=custom_objects,
+    compile=False
 )
 
     if 'lstm_model' not in st.session_state:
-        st.session_state['lstm_model']  = load_model(
-    lstm_model_path, custom_objects=custom_objects
+        st.session_state['cnn_model'] = load_model(
+    lstm_model_path,
+    custom_objects=custom_objects,
+    compile=False
 )
-
     current_model = st.session_state['cnn_model'] if model_choice == "CNN" else st.session_state['lstm_model']
 
     # --- Main Content ---
@@ -156,6 +159,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
