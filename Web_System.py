@@ -34,10 +34,10 @@ custom_objects_lstm = {
     "TimeDistributed": TimeDistributed,
     "Input": Input
 }
-cnn_model_path = "models/best_cnn_model.h5"
+cnn_model_path = "models/best_cnn_model.onnx"
 cnn_url = "https://drive.google.com/uc?id=15EEV2Lzk9bX-pLw2AqoBXQAhIY4Itfjt"
 
-lstm_model_path = "models/best_lstm_model.h5"
+lstm_model_path = "models/best_lstm_model.onnx"
 lstm_url = "https://drive.google.com/uc?id=1eEdGGyqbAR_SK11twg9VqM-q6gdMxgrz"
 
 os.makedirs("models", exist_ok=True)
@@ -167,6 +167,7 @@ def main():
             st.info("Waiting for prediction...")
 
 main()
+
 
 
 
